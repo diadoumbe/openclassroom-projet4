@@ -1,0 +1,16 @@
+menu accueil:
+accueil , actu , mes comment , tous les billets article
+
+
+menu membre:
+accueil , mes billets , modif billets , delete billet , comentaire signale
+
+page mes billets liste les billets avec corbeille pour delete et stylo pour modifier.
+
+et un clique montre billet et commentaire sur : page billetshow.php ou billetdisplay.php
+
+sur page billetshow.php mettre corbeille pour delete et stylo pour modifier tous les commentaires.
+
+page commentred.php affiche tous les commentaires signale avec corbeille pour delete
+
+footer simple 
