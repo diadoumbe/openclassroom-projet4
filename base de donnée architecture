@@ -1,0 +1,19 @@
+ Base de donné :news
+ 
+ Table billet 5champs:
+ 1.idb=int
+ ,2.titreb=string,
+ 3.messageb=string,
+ 4.auteurb=string,
+ 5.dateb=datetime
+
+ Table comment 7champs:
+ 1.idc=int,
+ 2.idbc=int,
+ 3.titrec=stirng,
+ 4.commentc=string,
+ 5.signalc=int 0/1,
+ 6.auteurc=string,
+ 7.datec=datetime
+ 
+ peut etre ajout d une table utilisateur pour connexion admin si utilisation de session pour la partie admin
