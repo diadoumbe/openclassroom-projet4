@@ -1,0 +1,91 @@
+<?php
+/*
+table billet 5champs:
+1.idb=int,2.titreb=string,3.messageb=string,4.auteurb=string,5.dateb=datetime
+   */
+   
+//avec modif hydratation
+
+class Billet
+{
+  protected $idb;
+  protected $titreb;
+  protected $messageb;
+  protected $auteurb;
+  protected $dateb;
+
+  // Un tableau de données doit être passé à la fonction (d'où le préfixe « array »).
+  public function hydrate(array $donnees)
+  {
+  	foreach ($donnees as $key => $value)
+  	{
+  		// On récupère le nom du setter correspondant à l'attribut.
+  		$method = 'set'.ucfirst($key);
+  
+  		// Si le setter correspondant existe.
+  		if (method_exists($this, $method))
+  		{
+  			// On appelle le setter.
+  			$this->$method($value);
+  		}
+  	}
+  }
+
+  public function idb() { return $this->idb; }
+  public function titreb() { return $this->titreb; }
+  public function messageb() { return $this->messageb; }
+  public function auteurb() { return $this->auteurb; }
+  public function dateb() { return $this->dateb; }
+
+  public function setIdb($idbl)
+  {
+    // L'identifiant du bilet, un nombre entier.
+    $this->idb = (int) $idbl;
+  }
+        
+  public function setTitre($titrebl)
+  {
+    // On vérifie qu'il s'agit bien d'une chaîne de caractères.
+    // Dont la longueur est inférieure à 30 caractères.
+    if (is_string($titrebl) && strlen($titrebl) <= 50)
+    {
+      $this->titreb = $titrebl;
+    }
+  }
+
+  public function setMessageb($messagebl)
+  {
+  	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
+  	// Dont la longueur est inférieure à 30 caractères.
+  	if (is_string($messagebl) && strlen($messagebl) <= 2000)
+  	{
+  		$this->messageb = $messagebl;
+  	}
+  }
+  
+
+  public function setAuteurb($auteurbl)
+  {
+  	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
+  	// Dont la longueur est inférieure à 30 caractères.
+  	if (is_string($auteurbl) && strlen($auteurbl) <= 50)
+  	{
+  		$this->auteurb = $auteurbl;
+  	}
+  }
+  
+
+  public function setDateb($datebl)
+  {
+  	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
+  	// Dont la longueur est inférieure à 30 caractères.
+  	if (is_string($datebl) && strlen($datebl) <= 30)
+  	{
+  		$this->dateb = $datebl;
+  	}
+  }
+  
+  
+
+}
+?>
