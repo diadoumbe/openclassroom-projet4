@@ -1,0 +1,216 @@
+<?php
+
+require 'classebillet.php';
+require 'classecomment.php';
+
+/*
+ Base de donné :news
+ 
+ Table billet 5champs:
+ 1.idb=int,2.titreb=string,3.messageb=string,4.auteurb=string,5.dateb=datetime
+
+ Table comment 7champs:
+ 1.idc=int,2.idbc=int,3.titrec=stirng,4.commentc=string,5.signalc=int 0/1,6.auteurc=string,7.datec=datetime
+ */
+//CLASS MANAGER
+class BilletcomManager
+{
+  private $_db; // Instance de PDO
+
+ // fonction constructeur instancie l objet
+  public function __construct($db)
+  {
+    $this->setDb($db);
+  }
+
+  
+// fonction ajouter billet dans admin
+  public function addb(Billet $billet)
+  {
+    $q = $this->_db->prepare('INSERT INTO billet(titreb, messageb, auteurb, dateb) VALUES(:titre, :message, :auteur, NOW() )');
+
+    $q->bindValue(':titre', $billet->titreb(), PDO::PARAM_STR);
+    $q->bindValue(':message', $billet->messageb(), PDO::PARAM_STR);
+    $q->bindValue(':auteur', $billet->auteurb(), PDO::PARAM_STR);
+    $q->bindValue(':niveau', $billet->niveau(), PDO::PARAM_STR);
+
+    $q->execute();
+  }
+
+  
+// fonction ajouter commentaire
+  public function addc(Comment $comment)
+  {
+  	$q = $this->_db->prepare('INSERT INTO comment(titrec, idbc, commentc, signalc, auteurc, datec) VALUES(:titre, :id, :comment, :signal, :auteur, NOW() )');
+  
+  	$q->bindValue(':titre', $comment->titrec(), PDO::PARAM_STR);
+  	$q->bindValue(':id', $comment->idbc(), PDO::PARAM_INT);
+  	$q->bindValue(':comment', $comment->commentc(), PDO::PARAM_STR);
+  	$q->bindValue(':signal', $comment->signalc(), PDO::PARAM_INT);
+  	$q->bindValue(':auteur', $comment->auteurc(), PDO::PARAM_STR);
+  	
+  	$q->execute();
+  }
+ 
+  
+ // fonction supprimer un billet dans admin
+  public function deleteb(Billet $billet)
+  {
+    $this->_db->prepare('DELETE FROM billet WHERE idb = :id ');
+
+    $q->bindValue(':id', $billet->idb(), PDO::PARAM_INT);
+    
+    $q->execute();
+  }
+
+  
+// fonction supprimer un commentaire dans admin
+  public function deletec(Comment $comment)
+  {
+  	$this->_db->prepare('DELETE FROM comment WHERE idc = :id ');
+  
+  	$q->bindValue(':id', $comment->idc(), PDO::PARAM_INT);
+  
+  	$q->execute();
+  }
+ 
+
+  // fonction supprimer tous les commentaires d un bilet dans admin
+  public function deleteListc(Billet $billet)
+  {
+  	$this->_db->prepare('DELETE * FROM comment WHERE idbc = :id ');
+  
+  	$q->bindValue(':id', $billet->idb(), PDO::PARAM_INT);
+  
+  	$q->execute();
+  }
+  
+  
+ // fonction retourne un billet 
+  public function getb($id)
+  {
+    $id = (int) $id;
+
+    $q = $this->_db->prepare('SELECT * FROM billet WHERE idb = :id ');
+
+    $q->bindValue(':id', $id, PDO::PARAM_INT);
+    
+    $q->execute();
+    
+    $donnees = $q->fetch(PDO::FETCH_ASSOC);
+
+    return new Billet($donnees);
+  }
+
+  
+// fonction retourne un commentaire 
+  public function getc($id)
+  {
+  	$id = (int) $id;
+  
+  	$q = $this->_db->prepare('SELECT * FROM comment WHERE idc = :id ');
+  
+  	$q->bindValue(':id', $id, PDO::PARAM_INT);
+  
+  	$q->execute();
+  
+  	$donnees = $q->fetch(PDO::FETCH_ASSOC);
+  
+  	return new Comment($donnees);
+  }
+ 
+  
+// fonction lister tous les billets
+  public function getListb()
+  {
+    $billets = [];
+
+    $q = $this->_db->query('SELECT * FROM billet ORDER BY dateb');
+
+   while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+      $billets[] = new Billet($donnees);
+    }
+
+    return $billets;
+  }
+
+  
+  // fonction lister tous les commentaires d un billet
+  public function getListc($id)
+  {
+  	$comments = [];
+  
+  	$q = $this->_db->prepare('SELECT * FROM comment WHERE idbillet=: id ORDER BY datec');
+  
+  	$q->bindValue(':id', $id, PDO::PARAM_INT);
+  	
+  	while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+  	{
+  		$comments[] = new Comment($donnees);
+  	}
+  
+  	return $comments;
+  }
+  
+  // fonction modifier billet dans l admin
+  public function updateb(Billet $billet)
+  {
+    $q = $this->_db->prepare('UPDATE billet SET titreb = :titre, messageb = :message, auteurb = :auteur WHERE idb = :id');
+
+    $q->bindValue(':titre', $billet->titreb(), PDO::PARAM_STR);
+    $q->bindValue(':message', $billet->messageb(), PDO::PARAM_STR);
+    $q->bindValue(':auteur', $billet->auteurb(), PDO::PARAM_STR);
+    $q->bindValue(':id', $billet->idb(), PDO::PARAM_INT);
+
+    $q->execute();
+  }
+
+  
+// fonction modifier commentaire dans l admin
+  public function updatec(Comment $comment)
+  {
+  	$q = $this->_db->prepare('UPDATE billet SET titrec = :titre, commentc = :comment, auteurc = :auteur WHERE idc = :id');
+  
+  	$q->bindValue(':titre', $comment->titrec(), PDO::PARAM_STR);
+  	$q->bindValue(':comment', $comment->commentc(), PDO::PARAM_STR);
+  	$q->bindValue(':auteur', $comment->auteurc(), PDO::PARAM_STR);
+  	$q->bindValue(':id', $comment->idc(), PDO::PARAM_INT);
+  
+  	$q->execute();
+  }
+  
+
+// fonction lister tous les commentaires signalés
+  public function getListsignalc()
+  {
+  	$q = $this->_db->query('SELECT * FROM comment WHERE signalc=1 ');
+  
+  	while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+  	{
+  		$comments[] = new Comment($donnees);
+  	}
+  	
+  	return $comments;
+  }
+ 
+  
+// fonction signaler commentaire 
+  public function makesignalc(Comment $comment)
+  {
+  	$q = $this->_db->prepare('UPDATE billet SET signalc = 1 WHERE idc = :id');
+  
+  	$q->bindValue(':id', $comment->idc(), PDO::PARAM_INT);
+  
+  	$q->execute();
+  }
+  
+
+// fonction instanciation connexion a la bdd
+  public function setDb(PDO $db)
+  {
+  	$this->_db = $db;
+  }
+  
+}
+?>
