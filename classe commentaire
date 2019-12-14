@@ -1,0 +1,115 @@
+<?php
+/*
+table comment 7champs:
+1.idc=int,2.idbc=int,3.titrec=stirng,4.commentc=string,5.signalc=int 0/1,6.auteurc=string,7.datec=datetime
+   */
+//avec modif hydratation
+
+class Comment
+{
+  protected $idc;
+  protected $idbc;
+  protected $titrec;
+  protected $commentc;
+  protected $signalc;
+  protected $auteurc;
+  protected $auteurmailc;
+  protected $datec;
+  
+
+  // Un tableau de données doit être passé à la fonction (d'où le préfixe « array »).
+  public function hydrate(array $donnees)
+  {
+  	foreach ($donnees as $key => $value)
+  	{
+  		// On récupère le nom du setter correspondant à l'attribut.
+  		$method = 'set'.ucfirst($key);
+  
+  		// Si le setter correspondant existe.
+  		if (method_exists($this, $method))
+  		{
+  			// On appelle le setter.
+  			$this->$method($value);
+  		}
+  	}
+  }
+
+  public function idc() { return $this->idc; }
+  public function idbc() { return $this->idbc; }
+  public function titrec() { return $this->titrec; }
+  public function commentc() { return $this->commentc; }
+  public function signalc() { return $this->signalc; }
+  public function auteurc() { return $this->auteurc; }
+  public function auteurmailc() { return $this->auteurmailc; }
+  public function datec() { return $this->datec; }
+
+  public function setIdc($idcl)
+  {
+    // L'identifiant du commentaire, un nombre entier.
+    $this->idc = (int) $idcl;
+  }
+
+  public function setIdbc($idbcl)
+  {
+  	// L'identifiant du billet du commentaire, un nombre entier.
+  	$this->_idbc = (int) $idbcl;
+  }
+    
+  public function setTitrec($titrecl)
+  {
+    // On vérifie qu'il s'agit bien d'une chaîne de caractères.
+    // Dont la longueur est inférieure à 30 caractères.
+    if (is_string($titrecl) && strlen($titrecl) <= 50)
+    {
+      $this->_nom = $titrecl;
+    }
+  }
+
+  public function setCommentc($commentcl)
+  {
+  	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
+  	// Dont la longueur est inférieure à 30 caractères.
+  	if (is_string($commentcl) && strlen($commentcl) <= 800)
+  	{
+  		$this->commentc = $commentcl;
+  	}
+  }
+  
+  
+  public function setSignalc($signalcl)
+  {
+    $signalcl = (int) $signalcl;
+            
+    // On vérifie que la force passée est comprise entre 0 et 100.
+    if ($signalcl = 0 OR $signalcl = 1)
+    {
+      $this->signalc = $signalcl;
+    }
+  }
+
+
+  public function setAuteurc($auteurcl)
+  {
+  	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
+  	// Dont la longueur est inférieure à 50 caractères.
+  	if (is_string($auteurcl) && strlen($auteurcl) <= 50)
+  	{
+  		$this->auteurc = $auteurcl;
+  	}
+  }
+  
+
+
+  public function setDatec($datecl)
+  {
+  	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
+  	// Dont la longueur est inférieure à 40 caractères.
+  	if (is_string($datecl) && strlen($datecl) <= 40)
+  	{
+  		$this->datec = $datecl;
+  	}
+  }
+
+
+}
+?>
