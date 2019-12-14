@@ -1,0 +1,28 @@
+class billet 
+class commentaire
+class manager bdd un seul gros manager qui gerera les billrts et les commentaites , ce qui me permettra de ne pas faire une super classe abstraite d ou decoulerait la classe manager billet et commentaire ,je fais un deux en un ce qui me permet de ne pas multiplier les fichiers et la complexification du code 
+
+mvc 
+page accueil
+page index.php page principale des vues
+page accueil vue de tous les billets 
+page accueil billet un a un avec commentaires vue et ajout commentaire 
+
+page admin
+page admin vue de tous les billets 
+delete/update/add
+page admin billet un a un avec commentaires vue
+delete/update/add
+page tous les commentaires signales
+
+controleur
+page controler.php
+les condition et traitement $post formulaire et connexion avec les vues ,modele et classe de bdd 
+
+modele
+modele.php 
+require les classe avec les requettes  de conexion bdd 
+insert,delete,update,select one ,select all,count
+pour billet et commentaire 
+
+sur page modele php apeler les classes
