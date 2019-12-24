@@ -1,0 +1,22 @@
+page site    cotes visible du site
+index.php    affiche tous les billet
+billet.php   affiche un billet et ses commentaires
+header.php   entete site menu et logo
+footer.php   pied de page du site
+poster.php   sectio n affiche photo principale du site
+style.css    css du site
+
+dossier admin   cotes administration du site
+admin.php      affiche tous les billets du site avec systeme de gestion
+adbillet.php   affiche un billet et ses commentaires  avec systeme de gestion
+adsignal.php   affiche tous les commentaires signales
+adheader.php  entete site menu et logo cotes admin
+adfooter.php  pied de page du site cotes admin
+
+controleur struture mvc
+controler.php gere les requette et les vues du sites
+
+classes objets du site
+managerbc.php  gere les requttes serveur des billets et commentaires
+classbillet.php objet qui gere les billets
+classcomment.php objet qui gere les commentaires
