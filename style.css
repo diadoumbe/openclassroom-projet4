@@ -1,0 +1,235 @@
+body{
+	font:comic verdana;
+	word-break:break-word;
+	font-size:1.0em;
+	}
+#global{
+	   width:100%;
+	   background:grey;
+	   position:relative;
+	   top:0;
+      }
+      
+header{
+	   margin:auto;
+	   margin-top:8px;
+	   margin-bottom:8px;
+	   padding:3px;
+	   width:80%;
+	   position:relative;
+	   top:0;
+       display:flex;
+       flex:wrap;
+	   justify-content:space-between;
+	   align-items:start;
+	   background:white;
+	   border-radius:8px;
+	   border:none;
+      }
+
+#headerlogo{
+	        margin:3px;
+	        padding:3px;
+	        display:flex;
+	        flex:wrap;
+	        justify-content:space-between;
+	        align-items:center;
+           }
+
+#headerlogo div{
+	            margin:3px;
+	            padding:3px;
+               }
+
+#titreroman{
+	        font-size:1.7em; 
+           }
+
+#auteurtitre{
+	
+} 
+     
+footer{
+	   margin:auto;
+	   margin-top:8px;
+	   margin-bottom:8px;
+	   padding:2px;
+	   width:80%;
+	   height:200px;
+	   position:relative;
+	   top:0;
+       display:flex;
+       flex:wrap;
+	   justify-content:space-around;
+	   align-items:start;
+	   background:white;
+	   border-radius:8px;
+	   border:none;
+	   background-image:url("image/ecrivain2.jpg");
+	   background-size:contain;
+      }
+      
+#poster{
+	   with:80%;
+	   height:auto;
+	   margin:auto;
+	   padding:auto;
+	   position:relative;
+	   top:0;
+	    
+      }
+
+       .un{
+	         margin-left:auto;
+	         margin-right:auto;
+	         padding:10px;
+	         width:80%;
+	         position:relative;
+	         top:0;      
+	         background:white;
+	         border-radius:8px;
+	         border:none;
+	         text-align:center;
+            }
+
+.cadrebillet{
+	        border:20px solid transparent;
+	        padding:10px;
+	        border-image:url("image/cadrebillet.jpg") 30;
+	        width:70%;
+	        margin-left:auto;
+	        margin-right:auto;
+	        margin-top:4px;
+	        margin-bottom:4px;
+	        
+           }
+
+.tablebillet{
+	        font-size:0.90em;
+	        text-align:center;	        
+           }
+
+.tablebillet tr{	        
+	            display:flex;
+	            flex:wrap;
+	           justify-content:space-around;
+	           align-items:center;
+              }
+
+.tablebillet a{
+	            color:white;
+	            background:#3587ca;
+	            border-radius:6px;
+	            text-decoration:none;
+	            marign:3px;
+	            padding:2px;
+	            text-align:center;
+               }
+
+.tablebillet a:hover{	            
+	                  background:red;	           
+                     }
+           
+.cadrecomment{
+	         border:20px solid transparent;
+	         padding:10px;
+	         border-image:url("image/cadrecom.jpg") 30;
+	          width:70%;
+	        margin-left:auto;
+	        margin-right:auto;
+	        margin-bottom:4px;
+	        margin-top:4px;
+            }
+            
+.tablecomment{
+	         font-size:0.90em;
+	        text-align:center;
+	        display:flex;	        
+            }
+
+.tablecomment tr{	        
+	             display:flex;
+	             flex:wrap;
+	            justify-content:space-around;
+	            align-items:center;
+               }
+
+.tablecomment a{
+	            color:white;
+	            background:#3587ca;
+	            border-radius:6px;
+	            text-decoration:none;
+	            marign:3px;
+	            padding:2px;
+	            text-align:center;
+               }
+
+.tablecomment a:hover{	            
+	                  background:red;	           
+                     }
+
+nav ul{
+	   display:flex;
+	   flex:wrap;
+	   align-items:center;
+	   margin:3px;
+}
+
+nav ul li{
+	      list-style-type:none;
+	      border:1px solid grey;
+	      padding:3px;
+	      margin:3px;
+	      text-align:center;
+	      color:grey;
+	      font-size:0.70em;
+          }
+          
+nav ul li a{
+	        text-decoration:none;
+	        color:grey;
+          } 
+          
+a{text-decoration:none;color:grey;}
+a:hover{color:red;background:yellow;}
+a:visited{color:green;} 
+
+textarea{
+	     width:75%;
+	     padding:3px;
+        }
+            
+textarea:focus{
+	           background:#fdd2ce;
+	           color:black;	           
+               }    
+
+
+input[type=text] {
+	              width:50%;
+	              padding:3px;
+                 } 
+                 
+input[type=text]:focus {
+	                    background:#fdd2ce;
+	                   color:black;
+                      }  
+                      
+.abouton{
+	   border-radius:6px;
+	   margin:2px;
+	   padding:2px;
+	   color:white;
+	   background:#3CBC8D;
+      } 
+
+.abouton:hover{
+	         background:purple;
+            } 
+            
+.textuel{
+	     font-size:1.1em;
+	     word-break:break-word;
+	     color:#004800;
+	     padding:2px;
+}            
