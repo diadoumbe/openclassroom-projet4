@@ -1,35 +1,21 @@
-<!DOCTYPE html>
- <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="robots" content="noindex,nofollow">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Description" content="ouvrage peur sur le nil par edmond millis.">
-    <meta name="Keywords" content="roman edmond millis">
-     <link rel="stylesheet" type="text/css" href="style.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <title>Peur sur le nil,par edmond milis</title>
-  </head>
+<?php $titre="Article et commentaires administration";?>
 
-  <body>
-  
-    <div id="global">
-    
-       <?php include ("adheader.php");?>
-       
-       <!--  modification article -->
+<?php ob_start(); ?>
+
+      <!--  modification article -->
        <section class="un" >
-
-                <?php if (isset($message)){echo $message;} ?>
+           
+           <h3 class="titrerubrique">Article:</h3>
+           
+                <?php if (isset($message)){echo'<h3 class="actionok">'.htmlspecialchars($message).'</h3> '; } ?>
  
-                <?php if (empty($billet)){echo "SELECTIONNEZ UN ARTICLE!";
+                <?php if (empty($billet)){echo "<a href='admin.php'>SELECTIONNEZ UN ARTICLE, ici!</a>";
                 }else {?>
        
            <div class="cadrebillet">
            
-                <form action="adbillet.php" method="post" id="formbillet">
+                <form action="./admin.php?action=updbillet" method="post" id="formbillet">
                 
                       <fieldset>
                        
@@ -39,7 +25,7 @@
                                <label>
                                       Titre:
                                </label>
-                                  <input type="text" value="<?= $billet->titreb()  ?> " required="required" name="titreb" pattern="[a-zA-Z _-]{1,50}">
+                                  <input type="text" value="<?= htmlspecialchars($billet->titreb())  ?> " required="required" name="titreb" pattern="[a-zA-Z _-]{1,50}" title="titre,50lettres max ex:a-z0-9">
                                   
                             </p>
                             
@@ -48,13 +34,13 @@
                                <label>
                                       Auteur:
                                </label>
-                                  <input type="text" value="<?= $billet->auteurb()  ?>" required="required" name="auteurb" pattern="[a-zA-Z _-]{1,30}">
+                                  <input type="text" value="<?= $billet->auteurb()  ?>" required="required" name="auteurb" pattern="[a-zA-Z _-]{1,50}" title="auteur,50lettres max ex:a-z0-9">
                                   
                             </p>
                             
                       
                             <p>
-                                Date: <?= $billet->dateb()  ?>                                  
+                                Edite le: <?= $billet->dateb()  ?>                                  
                             </p>
                             
                       
@@ -62,7 +48,8 @@
                                <label>
                                       Article:
                                </label>
-                                  <textarea rows="12" cols="" required="required" name="messageb" id="messageb1"><?= nl2br( $billet->messageb())?> </textarea>
+                                 
+                                  <textarea rows="12" cols=""  required="required" name="messageb" id="messageb1"><?= htmlspecialchars(nl2br( $billet->messageb()))?> </textarea>
                                   
                             </p>
                                  <input type="hidden" value="<?= $billet->idb() ?>" name="idb">
@@ -75,9 +62,9 @@
                       
                 </form>
 
-              
-                 <a class="abouton" href="adbillet.php?delb=<?php echo $billet->idb(); ?>">Supprimer article</a>
-                              
+                <p>
+                   <a class="abouton" href="./admin.php?action=delbilletad&delb=<?php echo $billet->idb(); ?>">Supprimer article</a>
+                </p>             
                 
            </div>
          
@@ -87,30 +74,38 @@
        
        <!-- affichage de tous les commentaires de l article -->       
        <section class="un">
-
-         <?php if (isset($message1)){echo $message1;} ?>
+            
+            <?php if (!empty($comments)){?>
+            <h3 class="titrerubrique">Commentaires:</h3>
+            <?php }?>
+            
+         <?php if (isset($message1)){echo '<h3 class="actionok">'.$message1.'</h3>';} ?>
        
-        <?php if (empty($comments)){echo "AUCUN COMMENTAIRES!";
+        <?php  if (empty($comments)){echo "AUCUN COMMENTAIRES!";
          }else {?>       
            
              <?php foreach ($comments as $comment): ?>
              
-            <div class="cadrebillet">
+            <div class="cadrecomment">
              
-            <?php if ($comment->signalc()==1){?> <h4 class="alert">Commentaire signalé!</h4> <?php }?>
+            <?php if ($comment->signalc()==1){?> <h3 class="alert">Commentaire signale!</h3> <?php }?>
              
-                <h3><strong><?= $comment->titrec() ?> </strong></h3>
+                <h2>
+                    <strong><?= htmlspecialchars($comment->titrec()) ?> </strong>
+                </h2>                
 
-                <time><i><?= $comment->datec() ?> </i></time>
+                <h4>
+                    <time><i>Edite le: <?= $comment->datec() ?> </i></time>
+                    &nbsp;&nbsp;&nbsp;
+                    auteur:<em><?= htmlspecialchars($comment->auteurc()) ?> </em>
+               </h4>
 
-                <h6><em><?= $comment->auteurc() ?> </em></h6>
+                <div class="textuel"><?= htmlspecialchars($comment->commentc()) ?> </div>
 
-                <p class="textuel"><?= nl2br($comment->commentc()) ?> </p>
-
-                <table class="tablebillet">
+                <table class="tablecomment">
                   <tr>
                       <td>
-                          <a href="adbillet.php?delc=<?php echo $comment->idc(); ?>">Supprimer commentaire</a>
+                          <a href="./admin.php?action=delcbilletad&delc=<?php echo $comment->idc(); ?>&delidb=<?php echo $comment->idbc(); ?>">Supprimer commentaire</a>
                       </td>
                   </tr>
                 </table>                                        
@@ -119,17 +114,11 @@
           
           <?php endforeach; ?>
                
-          <?php }?>     
+          <?php  }?>     
                  
-       </section>
- 
-       <?php include ("footerad.php");?>
-             
-    </div>
-    
-    <script type="text/javascript" src="mce.js"></script>
-  </body>
+       </section>       
+<?php $contenu= ob_get_clean(); ?>
 
- </html>
+<?php require 'template2.php'; ?>
 
 
