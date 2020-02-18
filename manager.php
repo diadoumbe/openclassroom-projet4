@@ -1,7 +1,7 @@
 <?php
 
-require_once 'classbillet.php';
-require_once 'classcomment.php';
+//require_once 'classbillet.php';
+//require_once 'classcomment.php';
 
 class Managerbc
 {
@@ -39,13 +39,14 @@ class Managerbc
 		$q->bindValue(':auteur', $comment->auteurc(), PDO::PARAM_STR);
 		 
 		$q->execute();
+		
 	}
 
 
 	// fonction supprimer un billet dans admin
 	public function deleteb( $id)
 	{
-		$this->db->prepare('DELETE FROM billet WHERE idb = :id ') or die(print_r($db->errorInfo()));
+		$q= $this->db->prepare('DELETE  FROM billet WHERE idb =:id ') or die(print_r($db->errorInfo()));
 
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 
@@ -56,7 +57,7 @@ class Managerbc
 	// fonction supprimer un commentaire dans admin
 	public function deletec( $id)
 	{
-		$this->db->prepare('DELETE FROM comment WHERE idc = :id ') or die(print_r($db->errorInfo()));
+		$q= $this->db->prepare('DELETE  FROM comment WHERE idc = :id ') or die(print_r($db->errorInfo()));
 
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 
@@ -67,7 +68,7 @@ class Managerbc
 	// fonction supprimer tous les commentaires d un billet dans admin
 	public function deleteListc( $id)
 	{
-		$this->db->prepare('DELETE * FROM comment WHERE idbc = :id ') or die(print_r($db->errorInfo()));
+		$q= $this->db->prepare('DELETE  FROM comment WHERE idbc = :id ') or die(print_r($db->errorInfo()));
 
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 
@@ -136,9 +137,12 @@ class Managerbc
 	{
 		$comments = [];
 
-		$q = $this->db->prepare('SELECT * FROM comment WHERE idbillet=: id ORDER BY datec') or die(print_r($db->errorInfo()));
+		$q = $this->db->prepare('SELECT * FROM comment WHERE idbc=:id ORDER BY datec DESC') or die(print_r($db->errorInfo()));
 
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
+		
+		//$q->execute([':id'=> $id]);
+		$q->execute();
 		
 		$nombre=$q->rowCount();
 		
@@ -182,7 +186,7 @@ class Managerbc
 	public function signalistc()
 	{
 		$comments = [];
-		$q = $this->db->query('SELECT * FROM comment WHERE signalc=1 ') or die(print_r($db->errorInfo()));
+		$q = $this->db->query('SELECT * FROM comment WHERE signalc = 1 ') or die(print_r($db->errorInfo()));
 
 		$nombre=$q->rowCount();
 		
@@ -198,7 +202,7 @@ class Managerbc
 	// fonction signaler commentaire
 	public function signalc( $id)
 	{
-		$q = $this->db->prepare('UPDATE billet SET signalc = 1 WHERE idc = :id') or die(print_r($db->errorInfo()));
+		$q = $this->db->prepare('UPDATE comment SET signalc = 1 WHERE idc = :id') or die(print_r($db->errorInfo()));
 
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 
