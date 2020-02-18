@@ -77,7 +77,7 @@ class Comment
 	public function setCommentc($commentcl)
 	{
 		// On vérifie qu'il s'agit bien d'une chaîne de caractères.
-		// Dont la longueur est inférieure à 30 caractères.
+		// Dont la longueur est inférieure à 2000 caractères.
 		if (is_string($commentcl) && strlen($commentcl) <= 2000 && !empty($commentcl))
 		{
 			$this->commentc = $commentcl;
@@ -90,8 +90,8 @@ class Comment
 	{
 		$signalcl = (int) $signalcl;
 
-		// On vérifie que la force passée est comprise entre 0 et 1.
-		if ($signalcl = 0 OR $signalcl = 1)
+		// On vérifie que le signal passé est comprit entre 0 et 1.
+		if ($signalcl == 0  || $signalcl == 1)
 		{
 			$this->signalc = $signalcl;
 		}
