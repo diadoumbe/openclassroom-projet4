@@ -66,7 +66,7 @@ class Billet
 	{
 		// On vérifie qu'il s'agit bien d'une chaîne de caractères.
 		// Dont la longueur est inférieure à 30 caractères.
-		if (is_string($messagebl) && strlen($messagebl) <= 2000 && !empty($messagebl))
+		if (is_string($messagebl) && strlen($messagebl) <= 10000 && !empty($messagebl))
 		{
 			$this->messageb = $messagebl;
 		}
